@@ -39,6 +39,6 @@ class MyApplicationDemo : MultiDexApplication() {
         NeuroID.getInstance()?.startAppFlow("form_parks912", null)
         // NeuroID.getInstance()?.startAppFlow("form_skein469", "testSession")
         // NeuroID.getInstance()?.startSession("hasdklghs")
-        // NeuroID.getInstance()?.setUserID("fgdsgasdgsdg")
+        NeuroID.getInstance()?.identify("fgdsgasdgsdg")
     }
 }

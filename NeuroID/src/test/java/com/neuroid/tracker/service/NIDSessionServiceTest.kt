@@ -375,7 +375,7 @@ class NIDSessionServiceTest {
         } returns true
 
         every { mockedNeuroID.userID } returns "fakeID"
-        every { mockedIdentifierService.setUserID(any(), true) } returns false
+        every { mockedIdentifierService.setSessionID(any(), true) } returns false
 
         val sessionService =
             createSessionServiceInstance(
@@ -423,7 +423,7 @@ class NIDSessionServiceTest {
 
         every { mockedNeuroID.userID } returns "fakeID"
         every { mockedNeuroID.getUserID() } returns "fakeID2"
-        every { mockedIdentifierService.setUserID(any(), false) } returns true
+        every { mockedIdentifierService.setSessionID(any(), false) } returns true
 
         val sessionService =
             createSessionServiceInstance(
@@ -1083,7 +1083,7 @@ class NIDSessionServiceTest {
         every { mockedValidationService.verifyClientKeyExists(any()) } returns true
         every { mockedValidationService.validateSiteID(testSiteID) } returns true
         every { mockedNeuroID.getUserID() } returns userID
-        every { mockedIdentifierService.setUserID(userID, true) } returns true
+        every { mockedIdentifierService.setSessionID(userID, true) } returns true
 
         NeuroID._isSDKStarted = false
 
@@ -1098,7 +1098,7 @@ class NIDSessionServiceTest {
         var completionFuncResult: SessionStartResult? = null
         sessionService.startAppFlow(
             testSiteID,
-            userID = userID,
+            sessionID = userID,
         ) {
             completionFuncResult = it
         }
@@ -1109,7 +1109,7 @@ class NIDSessionServiceTest {
         verify(exactly = 1) {
             mockedNeuroID.addLinkedSiteID(testSiteID)
 
-            mockedIdentifierService.setUserID(userID, any())
+            mockedIdentifierService.setSessionID(userID, any())
 
             mockedSampleService.updateIsSampledStatus(testSiteID)
 

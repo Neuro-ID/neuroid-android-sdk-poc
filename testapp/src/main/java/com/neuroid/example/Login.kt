@@ -13,7 +13,7 @@ class Login: LayoutActivity() {
 
     fun login(userId: String) {
         ApplicationMain.isLoggedIn = true
-        NeuroID.getInstance()?.setUserID("${ApplicationMain.sessionName}${ApplicationMain.registeredSessionId}")
+        NeuroID.getInstance()?.identify("${ApplicationMain.sessionName}${ApplicationMain.registeredSessionId}")
         NeuroID.getInstance()?.attemptedLogin(userId)
         startActivity(Intent(this, Instructions::class.java))
     }

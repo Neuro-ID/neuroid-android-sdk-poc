@@ -190,7 +190,7 @@ class NIDIdentifierServiceTest {
     fun test_setUserId_not_empty() {
         every { validationService.validateUserID(any()) } returns true
 
-        val result = identifierService.setUserID(goodUID, false)
+        val result = identifierService.setSessionID(goodUID, false)
 
         Assert.assertTrue(result)
 

@@ -107,7 +107,7 @@ class NeuroIdUITest: MockServerTest() {
     @Test
     fun test03ValidateSetUserId() = runTest(timeout = Duration.parse("120s")) {
         NIDLog.d("----> UITest", "-------------------------------------------------")
-        NeuroID.getInstance()?.setUserID("UUID1234")
+        NeuroID.getInstance()?.identify("UUID1234")
         delay(500)
 
         forceSendEvents()
@@ -287,7 +287,7 @@ class NeuroIdUITest: MockServerTest() {
         NeuroID.getInstance()?.getTestingDataStoreInstance()?.clearEvents()
         NeuroID.getInstance()?.stop()
         delay(500)
-        NeuroID.getInstance()?.setUserID("UUID123")
+        NeuroID.getInstance()?.identify("UUID123")
         delay(500)
         NeuroID.getInstance()?.start()
         delay(500)

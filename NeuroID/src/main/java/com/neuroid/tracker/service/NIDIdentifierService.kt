@@ -119,23 +119,23 @@ internal class NIDIdentifierService(
 
     fun getUserID() = neuroID.userID
 
-    fun setUserID(
-        userId: String,
+    fun setSessionID(
+        sessionID: String,
         userGenerated: Boolean,
     ): Boolean {
         neuroID.captureEvent(
             type = LOG,
             level = "info",
-            m = "Set User Id Attempt ${validationService.scrubIdentifier(userId)}",
+            m = "Set User Id Attempt ${validationService.scrubIdentifier(sessionID)}",
         )
 
-        val validID = setGenericUserID(SET_USER_ID, userId, userGenerated)
+        val validID = setGenericUserID(SET_USER_ID, sessionID, userGenerated)
 
         if (!validID) {
             return false
         }
 
-        neuroID.userID = userId
+        neuroID.userID = sessionID
         return true
     }
 
