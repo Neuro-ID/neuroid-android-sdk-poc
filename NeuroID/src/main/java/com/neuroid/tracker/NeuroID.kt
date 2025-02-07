@@ -31,7 +31,6 @@ import com.neuroid.tracker.models.NIDEventModel
 import com.neuroid.tracker.models.NIDSensorModel
 import com.neuroid.tracker.models.NIDTouchModel
 import com.neuroid.tracker.models.SessionStartResult
-import com.neuroid.tracker.service.AdvancedDeviceIDManagerService
 import com.neuroid.tracker.service.ConfigService
 import com.neuroid.tracker.service.LocationService
 import com.neuroid.tracker.service.NIDCallActivityListener
@@ -78,6 +77,8 @@ class NeuroID
         internal var clientID = ""
         internal var userID = ""
         internal var linkedSiteID: String? = null
+        internal var firstInstallTime: Long = -1
+        internal var lastUpdateTime: Long = -1
         internal var packetNumber: Int = 0
         internal var tabID: String
 
@@ -126,6 +127,13 @@ class NeuroID
             )
 
         init {
+            // get install and update time now
+            getApplicationContext()?.let {
+                // The time at which the app was first installed. Units are as per System.currentTimeMillis().
+                firstInstallTime = it.packageManager?.getPackageInfo(it.packageName, 0)?.firstInstallTime ?: -1
+                // The time at which the app was last updated. Units are as per System.currentTimeMillis().
+                lastUpdateTime = it.packageManager?.getPackageInfo(it.packageName, 0)?.lastUpdateTime ?: -1
+            }
             when (serverEnvironment) {
                 PRODSCRIPT_DEVCOLLECTION -> {
                     endpoint = Constants.devEndpoint.displayName
@@ -941,7 +949,7 @@ class NeuroID
                     isConnected,
                     cp,
                     l,
-                    synthetic,
+                    synthetic
                 )
 
             if (queuedEvent) {
